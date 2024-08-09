@@ -8,18 +8,17 @@
   overflow: hidden;
 }
 
-.box {
+.bar {
   background-color: red;
-  height: 100px;
   border-width: 0 1px; /* Borde superior e inferior en 0px, borde izquierdo y derecho en 1px */
   border-style: solid;
   border-color: transparent white;
   flex: 1;
 }
 
-.box:first-child {
+.bar:first-child {
   border-left: none;
 }
-.box:last-child {
+.bar:last-child {
   border-right: none;
 }
