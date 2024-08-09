@@ -1,3 +1,5 @@
+import Event from "./src/consts/eventTypes.js";
+
 const basePath = "./src/components";
 const main = document.querySelector("main");
 
@@ -37,4 +39,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   await load("algorithm-card", ["css"]);
   await load("algorithm-list");
   await load("sorting-visualizer");
+
+  const event = new CustomEvent(Event.MAIN_LOADED);
+  document.dispatchEvent(event);
 });
