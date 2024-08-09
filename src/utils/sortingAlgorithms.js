@@ -1,42 +1,51 @@
 import sleep from "./asyncSleep.js";
 
 export default class SortingAlgorithms {
+  #array;
+
   constructor(array) {
-    this.array = array;
+    this.#array = array;
   }
 
-  async bubble() {
-    const len = this.array.length;
+  // async bubble() { } no funciona, ya que utiliza
+  // el contexto del botón que realiza la acción como
+  // valor para 'this'
+  bubble = async () => {
+    const len = this.#array.length;
 
     for (let i = 0; i < len; i++) {
       for (let j = 0; j < len - 1 - i; j++) {
-        if (this.array[j] > this.array[j + 1]) {
-          [this.array[j], this.array[j + 1]] = [
-            this.array[j + 1],
-            this.array[j],
+        if (this.#array[j] > this.#array[j + 1]) {
+          [this.#array[j], this.#array[j + 1]] = [
+            this.#array[j + 1],
+            this.#array[j],
           ];
           await sleep(1);
         }
       }
     }
-  }
+  };
 
-  async insertion() {
-    const len = this.array.length;
+  insertion = async () => {
+    const len = this.#array.length;
 
     for (let i = 1; i < len; i++) {
-      let current = this.array[i];
+      let current = this.#array[i];
       let j = i - 1;
-      while (j >= 0 && this.array[j] > current) {
-        this.array[j + 1] = this.array[j];
+      while (j >= 0 && this.#array[j] > current) {
+        this.#array[j + 1] = this.#array[j];
         j--;
       }
-      this.array[j + 1] = current;
+      this.#array[j + 1] = current;
       await sleep(1);
     }
-  }
+  };
 
-  async merge(arr = this.array, left = 0, right = this.array.length - 1) {
+  merge = async (
+    arr = this.#array,
+    left = 0,
+    right = this.#array.length - 1
+  ) => {
     if (left >= right) {
       return;
     }
@@ -47,7 +56,7 @@ export default class SortingAlgorithms {
     await merge(arr, middle + 1, right);
 
     await this.#innerMerge(arr, left, middle, right);
-  }
+  };
 
   #innerMerge = async (arr, left, middle, right) => {
     let l1 = middle - left + 1;
@@ -95,23 +104,23 @@ export default class SortingAlgorithms {
     }
   };
 
-  async selection() {
-    const len = this.array.length;
+  selection = async () => {
+    const len = this.#array.length;
 
     for (let i = 0; i < len - 1; i++) {
       let minIndex = i;
       for (let j = i + 1; j < len; j++) {
-        if (this.array[j] < this.array[minIndex]) {
+        if (this.#array[j] < this.#array[minIndex]) {
           minIndex = j;
         }
       }
       if (minIndex !== i) {
-        [this.array[i], this.array[minIndex]] = [
-          this.array[minIndex],
-          this.array[i],
+        [this.#array[i], this.#array[minIndex]] = [
+          this.#array[minIndex],
+          this.#array[i],
         ];
         await sleep(1);
       }
     }
-  }
+  };
 }
