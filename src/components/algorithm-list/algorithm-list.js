@@ -1,29 +1,41 @@
-import Sort from "../../consts/sortTypes.js";
+export default class AlgorithmList {
+  #sortDict;
 
-const sortDict = {
-  [Sort.BUBBLE]: {},
-  [Sort.HEAP]: {},
-  [Sort.INSERTION]: {},
-  [Sort.MERGE]: {},
-  [Sort.QUICK]: {},
-  [Sort.RADIX]: {},
-  [Sort.SELECTION]: {},
-};
+  constructor(sortDict) {
+    this.#sortDict = sortDict;
+  }
 
-const algorithmListContainer = document.getElementById(
-  "algorithm-list-container"
-);
+  #sort = async (buttonCard, method) => {
+    buttonCard.disabled = true;
+    method()
+      .then(() => {
+        buttonCard.disabled = false;
+      })
+      .catch((e) => {
+        buttonCard.classList.add("broke");
+        console.error(e);
+      });
+  };
 
-const sortEntries = Object.entries(sortDict);
-for (const [key, method] of sortEntries) {
-  const buttonCard = document.createElement("button");
-  buttonCard.id = key;
-  buttonCard.textContent = key;
-  buttonCard.classList.add("algorithm-card");
+  createCards() {
+    const algorithmListContainer = document.getElementById(
+      "algorithm-list-container"
+    );
 
-  if (typeof method === "function")
-    buttonCard.addEventListener("click", method);
-  else buttonCard.disabled = true;
+    const sortEntries = Object.entries(this.#sortDict);
+    for (const [key, method] of sortEntries) {
+      const buttonCard = document.createElement("button");
+      buttonCard.id = key;
+      buttonCard.textContent = key;
+      buttonCard.classList.add("algorithm-card");
 
-  algorithmListContainer.appendChild(buttonCard);
+      if (typeof method === "function") {
+        buttonCard.addEventListener("click", (e) => {
+          this.#sort(buttonCard, method);
+        });
+      } else buttonCard.disabled = true;
+
+      algorithmListContainer.appendChild(buttonCard);
+    }
+  }
 }

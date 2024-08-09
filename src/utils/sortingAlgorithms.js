@@ -11,7 +11,7 @@ export default class SortingAlgorithms {
   // el contexto del botón que realiza la acción como
   // valor para 'this'
   bubble = async () => {
-    const len = this.#array.length;
+    const len = this.#array.value.length;
 
     for (let i = 0; i < len; i++) {
       for (let j = 0; j < len - 1 - i; j++) {
@@ -27,7 +27,7 @@ export default class SortingAlgorithms {
   };
 
   insertion = async () => {
-    const len = this.#array.length;
+    const len = this.#array.value.length;
 
     for (let i = 1; i < len; i++) {
       let current = this.#array[i];
@@ -44,7 +44,7 @@ export default class SortingAlgorithms {
   merge = async (
     arr = this.#array,
     left = 0,
-    right = this.#array.length - 1
+    right = this.#array.value.length - 1
   ) => {
     if (left >= right) {
       return;
@@ -52,8 +52,8 @@ export default class SortingAlgorithms {
 
     let middle = left + parseInt((right - left) / 2);
 
-    await merge(arr, left, middle);
-    await merge(arr, middle + 1, right);
+    await this.merge(arr, left, middle);
+    await this.merge(arr, middle + 1, right);
 
     await this.#innerMerge(arr, left, middle, right);
   };
@@ -91,7 +91,7 @@ export default class SortingAlgorithms {
     }
 
     while (i < l1) {
-      this.array[k] = arr1[i];
+      arr[k] = arr1[i];
       i++;
       k++;
       await sleep(1);
@@ -105,7 +105,7 @@ export default class SortingAlgorithms {
   };
 
   selection = async () => {
-    const len = this.#array.length;
+    const len = this.#array.value.length;
 
     for (let i = 0; i < len - 1; i++) {
       let minIndex = i;

@@ -1,35 +1,45 @@
 import ArrayListen from "../../utils/arrayListen.js";
 import randomNumbersInRange from "../../utils/randomNumbersInRange.js";
-import SortingAlgorithms from "../../utils/sortingAlgorithms.js";
 
-const container = document.getElementById("sorting-visualizer-container");
+export default class SortingVisualizer {
+  #length;
 
-const arr = new ArrayListen(setStyle);
-fillArray();
+  constructor() {
+    // Para conservar el contexto de esta clase
+    // al llamar al método #setStyle desde otro sitio
+    // se utiliza this.#setStyle.bind(this)
+    this.arr = new ArrayListen(this.#setStyle.bind(this));
+    this.fillArray();
 
-const sortingAlgorithms = new SortingAlgorithms(arr.value);
-let length = 1;
+    this.#length = 1;
+    this.#createBoxes();
+  }
 
-arr.value.map((n, i) => {
-  const id = `block-${i}`;
+  #createBoxes() {
+    const container = document.getElementById("sorting-visualizer-container");
 
-  const newDiv = document.createElement("div");
-  newDiv.classList.add("bar");
-  newDiv.id = id;
-  setWidth(newDiv, length * n);
+    this.arr.value.map((n, i) => {
+      const id = `bar-${i}`;
 
-  container.appendChild(newDiv);
-});
+      const newDiv = document.createElement("div");
+      newDiv.classList.add("bar");
+      newDiv.id = id;
+      this.#setWidth(newDiv, this.#length * n);
 
-function fillArray() {
-  arr.value = randomNumbersInRange(1, 200, 50);
-}
+      container.appendChild(newDiv);
+    });
+  }
 
-function setWidth(element, height) {
-  element.style.height = height + "px";
-}
+  fillArray() {
+    this.arr.value = randomNumbersInRange(1, 200, 50);
+  }
 
-function setStyle(e) {
-  const element = document.getElementById(`block-${e.index}`);
-  setWidth(element, length * e.item);
+  #setWidth(element, height) {
+    element.style.height = height + "px";
+  }
+
+  #setStyle(e) {
+    const element = document.getElementById(`bar-${e.index}`);
+    this.#setWidth(element, this.#length * e.item);
+  }
 }

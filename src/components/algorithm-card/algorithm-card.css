@@ -27,3 +27,11 @@
     rgb(216, 216, 216) 100%
   );
 }
+
+.broke {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(247, 35, 35, 0.3) 100%
+  );
+}
