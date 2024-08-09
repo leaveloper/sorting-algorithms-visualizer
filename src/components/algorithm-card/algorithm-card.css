@@ -4,11 +4,16 @@
   border-radius: 15px;
   width: 150px;
   height: 80px;
+  margin-top: 10px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-weight: bold;
   font-size: 15px;
   background: transparent;
   text-transform: uppercase;
+}
+
+.algorithm-card:first-child {
+  margin-top: 0;
 }
 
 .algorithm-card:enabled {

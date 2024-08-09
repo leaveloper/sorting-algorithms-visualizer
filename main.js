@@ -1,13 +1,14 @@
 const basePath = "./src/components";
+const main = document.querySelector("main");
 
-function load(component, only = []) {
+async function load(component, only = []) {
   const componentFilename = `${basePath}/${component}/${component}`;
 
   if (only.length === 0 || only.includes("html")) {
-    fetch(`${componentFilename}.html`)
+    await fetch(`${componentFilename}.html`)
       .then((response) => response.text())
       .then((data) => {
-        document.body.innerHTML += data;
+        main.innerHTML += data;
 
         addScriptAndStyle(componentFilename, only);
       });
@@ -32,8 +33,8 @@ function addScriptAndStyle(componentFilename, only) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  load("algorithm-card", ["css"]);
-  load("algorithm-list");
-  load("sorting-visualizer");
+document.addEventListener("DOMContentLoaded", async function () {
+  await load("algorithm-card", ["css"]);
+  await load("algorithm-list");
+  await load("sorting-visualizer");
 });
