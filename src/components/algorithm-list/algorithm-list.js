@@ -1,13 +1,19 @@
 export default class AlgorithmList {
   #sortDict;
+  done = false;
 
   constructor(sortDict) {
     this.#sortDict = sortDict;
+    this.#createCards();
   }
 
-  #sort = async (buttonCard, method) => {
+  #handleClick = async (buttonCard, method) => {
+    this.done = false;
+
+    this.#handleDisabledCards(buttonCard, true);
+
     buttonCard.disabled = true;
-    method()
+    await method()
       .then(() => {
         buttonCard.disabled = false;
       })
@@ -15,9 +21,13 @@ export default class AlgorithmList {
         buttonCard.classList.add("broke");
         console.error(e);
       });
+
+    this.#handleDisabledCards(buttonCard, false);
+
+    this.done = true;
   };
 
-  createCards() {
+  #createCards() {
     const algorithmListContainer = document.getElementById(
       "algorithm-list-container"
     );
@@ -31,11 +41,19 @@ export default class AlgorithmList {
 
       if (typeof method === "function") {
         buttonCard.addEventListener("click", (e) => {
-          this.#sort(buttonCard, method);
+          this.#handleClick(buttonCard, method);
         });
       } else buttonCard.disabled = true;
 
       algorithmListContainer.appendChild(buttonCard);
+    }
+  }
+
+  #handleDisabledCards(buttonCard, disabled) {
+    const buttons = document.querySelectorAll(".algorithm-card");
+    for (const button of buttons) {
+      if (button === buttonCard || button.disabled === disabled) continue;
+      button.disabled = disabled;
     }
   }
 }
