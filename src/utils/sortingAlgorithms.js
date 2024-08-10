@@ -70,6 +70,7 @@ export default class SortingAlgorithms {
       while (j >= 0 && this.#array[j] > current) {
         this.#array[j + 1] = this.#array[j];
         j--;
+        await sleep(1);
       }
       this.#array[j + 1] = current;
       await sleep(1);
@@ -220,6 +221,7 @@ export default class SortingAlgorithms {
       for (let j = i + 1; j < len; j++) {
         if (this.#array[j] < this.#array[minIndex]) {
           minIndex = j;
+          await sleep(1);
         }
       }
       if (minIndex !== i) {

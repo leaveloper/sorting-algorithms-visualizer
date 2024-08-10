@@ -8,7 +8,7 @@ import SortingAlgorithms from "./utils/sortingAlgorithms.js";
 
 const minRandomNumber = 1;
 const maxRandomNumber = 200;
-const maxNumbers = 50;
+const maxNumbers = 100;
 
 function fillArray(array) {
   array.value = randomNumbersInRange(
