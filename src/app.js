@@ -35,11 +35,11 @@ function initialize() {
 
   const sortDict = {
     [Sort.BUBBLE]: sortingAlgorithms.bubble,
-    [Sort.HEAP]: {},
+    [Sort.HEAP]: sortingAlgorithms.heap,
     [Sort.INSERTION]: sortingAlgorithms.insertion,
     [Sort.MERGE]: sortingAlgorithms.merge,
-    [Sort.QUICK]: {},
-    [Sort.RADIX]: {},
+    [Sort.QUICK]: sortingAlgorithms.quick,
+    [Sort.RADIX]: sortingAlgorithms.radix,
     [Sort.SELECTION]: sortingAlgorithms.selection,
   };
 
@@ -47,6 +47,8 @@ function initialize() {
   Object.defineProperty(algorithmList, "done", {
     set(value) {
       if (!value) {
+        // Una vez que terminó el ordenamiento y se vuelve a hacer clic,
+        // se genera un nuevo array y aplica el algoritmo seleccionado
         fillArray(array);
       }
     },

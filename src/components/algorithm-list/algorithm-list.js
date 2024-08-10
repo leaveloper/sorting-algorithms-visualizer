@@ -43,7 +43,13 @@ export default class AlgorithmList {
         buttonCard.addEventListener("click", (e) => {
           this.#handleClick(buttonCard, method);
         });
-      } else buttonCard.disabled = true;
+      } else {
+        buttonCard.disabled = true;
+        // Se añade una clase de css auxiliar
+        // para hacer que el método #handleDisabledCards
+        // ignore este botón.
+        buttonCard.classList.add("ignored");
+      }
 
       algorithmListContainer.appendChild(buttonCard);
     }
@@ -52,7 +58,8 @@ export default class AlgorithmList {
   #handleDisabledCards(buttonCard, disabled) {
     const buttons = document.querySelectorAll(".algorithm-card");
     for (const button of buttons) {
-      if (button === buttonCard || button.disabled === disabled) continue;
+      if (button === buttonCard || button.classList.contains("ignored"))
+        continue;
       button.disabled = disabled;
     }
   }
